@@ -489,10 +489,11 @@ function render(id){
   initLmaps();
   if(id) wireDay(DAYS.find(x=>x.id===id));
 }
-function go(id){ render(id); try{history.replaceState(null,'',id?'#day'+id:'#all')}catch(e){} }
+function go(id){ render(id); try{history.replaceState(null,'',id?'#day'+id:'#all')}catch(e){} try{localStorage.setItem('trip_tab_v1',String(id))}catch(e){} }
 tabs.addEventListener('click',e=>{const b=e.target.closest('.tab'); if(b) go(+b.dataset.id);});
 const m=(location.hash||'').match(/day(\d)/);
-render(m?+m[1]:0);
+let lastTab=0; try{ lastTab=+(localStorage.getItem('trip_tab_v1')||0)||0; }catch(e){}
+render(m?+m[1]:/#all/.test(location.hash)?0:(DAYS.some(x=>x.id===lastTab)?lastTab:0));
 const BCATS = [
   {k:"stay",n:"ที่พัก",c:"--d3"},{k:"fly",n:"ตั๋วเครื่องบิน / ประกัน",c:"--d5"},{k:"move",n:"เดินทางในญี่ปุ่น",c:"--d1"},
   {k:"food",n:"อาหาร",c:"--d2"},{k:"fun",n:"ค่าเข้าชม / กิจกรรม",c:"--d4"},{k:"etc",n:"อื่นๆ",c:"--muted"}
