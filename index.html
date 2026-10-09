@@ -5,8 +5,6 @@
 <meta property="og:description" content="มาราธอน ออนเซ็น ธรรมชาติ ของกิน — 5 วัน 5 สาย พร้อมแผนที่และตั๋วที่ต้องซื้อ">
 <meta name="theme-color" content="#131820">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🗻</text></svg>">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
 </head><body>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -94,13 +92,40 @@ h1,h2,h3{margin:0;text-wrap:balance}
 .maps{display:flex;flex-direction:column;gap:14px;min-width:0}
 figure{margin:0;background:var(--map);border-radius:14px;overflow:hidden;border:1px solid var(--rule)}
 figure>svg{display:block;width:100%;height:auto;max-width:100%}
-.lmap{height:380px;width:100%;background:var(--map);z-index:0}
-@media (max-width:600px){.lmap{height:300px}}
-.pin{position:absolute;transform:translate(-50%,-50%);display:grid;place-items:center;min-width:26px;height:26px;padding:0 5px;border-radius:8px;background:var(--card);color:var(--ink);border:3px solid var(--c);font:700 12px/1 "JetBrains Mono",monospace;white-space:nowrap;box-shadow:0 2px 6px rgba(0,0,0,.25)}
-.dot{position:absolute;transform:translate(-50%,-50%);width:10px;height:10px;border-radius:50%;background:var(--card);border:2px solid var(--ink)}
-.leaflet-tooltip{font-family:var(--body);font-size:13px}
-.leaflet-container{font-family:var(--body)}
-.tiles-dark{filter:invert(1) hue-rotate(180deg) brightness(.9) contrast(.9) saturate(.6)}
+.gmap{display:block;width:100%;height:440px;border:0;background:var(--map)}
+@media (max-width:600px){.gmap{height:340px}}
+.legs{display:flex;flex-wrap:wrap;gap:6px;padding:10px 12px;background:var(--card);border-top:1px solid var(--rule)}
+.leg{appearance:none;border:1px solid var(--rule);background:var(--card);color:var(--ink);font:inherit;font-size:12px;padding:4px 10px;border-radius:999px;cursor:pointer}
+.leg[aria-pressed="true"]{background:var(--c);border-color:var(--c);color:#fff}
+.leg:focus-visible{outline:2px solid var(--c);outline-offset:2px}
+.route .stop{cursor:pointer}
+.route .stop.on .nm{color:var(--c)}
+.route .stop.on .node b{background:var(--c);color:#fff}
+
+/* budget */
+.bctl{display:flex;flex-wrap:wrap;gap:10px 18px;align-items:center;margin-bottom:14px;font-size:14px}
+.bctl label{display:inline-flex;align-items:center;gap:8px}
+.bctl input,.bt input{font:inherit;font-family:var(--mono);font-size:13px;color:var(--ink);background:var(--bg);border:1px solid var(--rule);border-radius:6px;padding:4px 6px;text-align:right;font-variant-numeric:tabular-nums}
+.bctl input{width:80px}
+.bt input{width:96px}
+.bctl button{font:inherit;font-size:13px;color:var(--muted);background:none;border:1px solid var(--rule);border-radius:8px;padding:5px 10px;cursor:pointer}
+.bsum{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px;margin-bottom:16px}
+.bsum div{background:var(--card);border:1px solid var(--rule);border-radius:12px;padding:14px 16px;display:flex;flex-direction:column;gap:2px}
+.bsum span{font-size:12px;color:var(--muted)}
+.bsum b{font-family:var(--mono);font-size:22px;font-variant-numeric:tabular-nums}
+.bsum small{font-family:var(--mono);font-size:13px;color:var(--muted)}
+.bbar{display:flex;height:14px;border-radius:7px;overflow:hidden;margin:4px 0 8px;background:var(--rule)}
+.bbar i{display:block;height:100%;background:var(--c)}
+.bleg{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:12px;color:var(--muted);margin-bottom:16px}
+.bleg span::before{content:"";display:inline-block;width:10px;height:10px;border-radius:3px;background:var(--c);margin-right:6px;vertical-align:-1px}
+.bt{background:var(--card);border:1px solid var(--rule);border-radius:14px}
+.bt td.n,.bt th.n{text-align:right;font-family:var(--mono);font-variant-numeric:tabular-nums;white-space:nowrap}
+.bt td:first-child{white-space:nowrap;font-family:var(--mono);font-size:12px;color:var(--muted);font-weight:500}
+.bt .note{display:block;font-size:12px;color:var(--muted)}
+.bt tr.cat td{background:var(--bg);font-weight:700;font-family:var(--body);color:var(--ink);font-size:14px;border-left:4px solid var(--c)}
+.bt tr.cat td.n{font-family:var(--mono)}
+.bt tfoot td{font-weight:700;border-bottom:0}
+.unit{font-size:11px;color:var(--muted);margin-left:4px;font-family:var(--mono)}
 figcaption{display:flex;justify-content:space-between;gap:10px;padding:8px 14px;font-size:12px;color:var(--muted);border-top:1px solid var(--rule);background:var(--card);font-family:var(--mono)}
 .legend{display:flex;gap:14px;flex-wrap:wrap}
 .legend i{display:inline-block;width:22px;height:0;border-top:4px solid var(--c);vertical-align:middle;margin-right:6px}
@@ -236,6 +261,24 @@ td:first-child{white-space:nowrap;font-weight:600}
     </div>
   </section>
 
+  <section id="budget">
+    <div class="section-head">
+      <span class="eyebrow">Budget</span>
+      <h2>งบประมาณแบบละเอียด</h2>
+    </div>
+    <div class="bctl">
+      <label>จำนวนคน <input type="number" id="bPeople" min="1" step="1"></label>
+      <label>จำนวนห้อง <input type="number" id="bRooms" min="1" step="1"></label>
+      <label>เรต ฿ ต่อ ¥1 <input type="number" id="bRate" min="0" step="0.001"></label>
+      <button type="button" id="bReset">คืนค่าประมาณการเดิม</button>
+    </div>
+    <div class="bsum" id="bSum"></div>
+    <div class="bbar" id="bBar"></div>
+    <div class="bleg" id="bLeg"></div>
+    <div class="bt tablewrap"><table id="bTable"></table></div>
+    <p style="font-size:13px;color:var(--muted);margin:10px 0 0">ตัวเลขเป็นประมาณการ แก้ได้ทุกช่อง ค่าที่แก้จำไว้ในเครื่องนี้ · ค่าห้อง/ออนเซ็นส่วนตัวคิดต่อห้องแล้วหารตามจำนวนคน · ตั๋วเครื่องบินกับประกันใส่เป็นบาท · เช็กเรตเงินเยนก่อนเดินทาง</p>
+  </section>
+
   <footer class="sources">
     <span>แผนที่เป็นแบบ schematic เวลาเป็นการประมาณ</span>
     <a href="https://odakyu-global.com/passes/hako" target="_blank" rel="noopener">Odakyu · Hakone Freepass</a>
@@ -328,135 +371,43 @@ const DAYS = [
   ]}
 ];
 
-const K = Math.cos(35.5*Math.PI/180);
-const pr = k => [PL[k].lng*K, -PL[k].lat];
-const W = 560;
-
-function frame(keys, pad, hmax, hmin){
-  const xy = keys.map(pr);
-  const xs = xy.map(a=>a[0]), ys = xy.map(a=>a[1]);
-  const minx=Math.min(...xs),maxx=Math.max(...xs),miny=Math.min(...ys),maxy=Math.max(...ys);
-  const sx=Math.max(maxx-minx,.006), sy=Math.max(maxy-miny,.006);
-  const sc=Math.min((W-2*pad)/sx,(hmax-2*pad)/sy);
-  const H=Math.max(hmin, Math.round(sy*sc+2*pad));
-  const cx=(minx+maxx)/2, cy=(miny+maxy)/2;
-  return {H, P:k=>{const [x,y]=pr(k);return [W/2+(x-cx)*sc, H/2+(y-cy)*sc]}};
+const G = {
+  narita:"Narita International Airport", hotel:"Henn na Hotel Tokyo Hamamatsucho", stadium:"Japan National Stadium",
+  gaien:"Jingu Gaien Ginkgo Avenue", omotesando:"Omotesando Station", harajuku:"Takeshita Street Harajuku",
+  shinjuku:"Shinjuku Station", yumoto:"Hakone-Yumoto Station", gora:"Gora Station", owakudani:"Owakudani Station",
+  togendai:"Togendai Station", shrine:"Hakone Shrine", kamakura:"Kamakura Station", hachiman:"Tsurugaoka Hachimangu",
+  buddha:"Kotoku-in Great Buddha", hase:"Hase-dera Kamakura", shibuya:"Shibuya Scramble Crossing", yanaka:"Yanaka Ginza",
+  ueno:"Ueno Park", gyoen:"Shinjuku Gyoen", nakameguro:"Nakameguro Station"
+};
+const gEmbed = (a,b,walk) => `https://www.google.com/maps?output=embed&hl=th&saddr=${encodeURIComponent(G[a])}&daddr=${encodeURIComponent(G[b])}&dirflg=${walk?'w':'r'}`;
+// each leg = arriving at stop i (0-based) from stop i-1
+const legsOf = d => d.stops.map((s,i)=>i&&d.stops[i-1].p!==s.p?{i,a:d.stops[i-1].p,b:s.p,walk:!!s.walk,how:s.how}:null).filter(Boolean);
+function dayMap(d){
+  const L=legsOf(d), f=L[0];
+  return `<figure><iframe class="gmap" id="gmap" title="Google Maps เส้นทาง" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="${gEmbed(f.a,f.b,f.walk)}"></iframe>
+  <div class="legs">${L.map(l=>`<button type="button" class="leg" data-leg="${l.i}" aria-pressed="false">${l.i}→${l.i+1} ${l.walk?'🚶':'🚆'} ${PL[l.b].n}</button>`).join('')}</div>
+  <figcaption><span id="legcap"></span><span>${L.length} ช่วง · แตะเพื่อเปลี่ยน</span></figcaption></figure>`;
 }
-function grid(H){
-  let g='';
-  for(let x=40;x<W;x+=40) g+=`<line x1="${x}" y1="0" x2="${x}" y2="${H}" style="stroke:var(--grid);stroke-width:1"/>`;
-  for(let y=40;y<H;y+=40) g+=`<line x1="0" y1="${y}" x2="${W}" y2="${y}" style="stroke:var(--grid);stroke-width:1"/>`;
-  return g;
-}
-const HALO = 'paint-order:stroke;stroke:var(--halo);stroke-width:4px;stroke-linejoin:round;';
-const MONO = "font-family:'JetBrains Mono',ui-monospace,monospace;";
-const SANS = "font-family:Anuphan,system-ui,sans-serif;";
-
-function dayMap(day, panel){
-  const inP = k => panel.k.includes(k);
-  const {H,P} = frame(panel.k, 70, 420, 250);
-  const col = `var(${day.c})`;
-  let lines='', arr={}, marks='';
-  const S = day.stops;
-  for(let i=0;i<S.length-1;i++){
-    const a=S[i], b=S[i+1];
-    if(a.p===b.p) continue;
-    const A=inP(a.p), B=inP(b.p);
-    if(A&&B){
-      const [x1,y1]=P(a.p),[x2,y2]=P(b.p);
-      lines+=`<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" style="stroke:var(--halo);stroke-width:10;stroke-linecap:round"/>`;
-      lines+=`<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" style="stroke:${col};stroke-width:5;stroke-linecap:round;${b.walk?'stroke-dasharray:1 9;':''}"/>`;
-    } else if(A||B){
-      const ink=A?a.p:b.p, out=A?b.p:a.p, key=ink+'|'+out;
-      arr[key]=arr[key]||{ink,out,o:0,i:0};
-      if(A) arr[key].o=1; else arr[key].i=1;
-    }
-  }
-  for(const v of Object.values(arr)){
-    const [x,y]=P(v.ink), [ax,ay]=pr(v.ink), [bx,by]=pr(v.out);
-    let dx=bx-ax, dy=by-ay; const m=Math.hypot(dx,dy)||1; dx/=m; dy/=m;
-    let L=84;
-    if(dx>0) L=Math.min(L,(W-16-x)/dx); if(dx<0) L=Math.min(L,(16-x)/dx);
-    if(dy>0) L=Math.min(L,(H-16-y)/dy); if(dy<0) L=Math.min(L,(16-y)/dy);
-    L=Math.max(L,30);
-    const ex=x+dx*L, ey=y+dy*L;
-    const hx=ex-dx*10, hy=ey-dy*10, px=-dy*6, py=dx*6;
-    lines+=`<line x1="${x}" y1="${y}" x2="${hx}" y2="${hy}" style="stroke:${col};stroke-width:3;stroke-dasharray:6 5"/>`;
-    lines+=`<polygon points="${ex},${ey} ${hx+px},${hy+py} ${hx-px},${hy-py}" style="fill:${col}"/>`;
-    const sym=v.o&&v.i?'↔':v.o?'→':'←';
-    const left = ex > W*0.6;
-    const ty = ey + (dy>0 ? 18 : -10);
-    lines+=`<text x="${ex}" y="${ty}" text-anchor="${left?'end':'start'}" style="${MONO}font-size:11px;font-weight:700;fill:${col};${HALO}">${sym} ${PL[v.out].n}</text>`;
-  }
-  const nums={};
-  S.forEach((s,i)=>{ if(inP(s.p)) (nums[s.p]=nums[s.p]||[]).push(i+1); });
-  for(const [k,list] of Object.entries(nums)){
-    const [x,y]=P(k); const lab=list.join('·'); const w=Math.max(26, 12+lab.length*7.6);
-    marks+=`<rect x="${x-w/2}" y="${y-13}" width="${w}" height="26" rx="8" style="fill:var(--card);stroke:${col};stroke-width:3"/>`;
-    marks+=`<text x="${x}" y="${y+4.5}" text-anchor="middle" style="${MONO}font-size:12px;font-weight:700;fill:var(--ink)">${lab}</text>`;
-    const right = x < W-170;
-    marks+=`<text x="${right?x+w/2+7:x-w/2-7}" y="${y+4.5}" text-anchor="${right?'start':'end'}" style="${SANS}font-size:13px;font-weight:600;fill:var(--ink);${HALO}">${PL[k].n}</text>`;
-  }
-  return `<figure><svg viewBox="0 0 ${W} ${H}" width="${W}" height="${H}" role="img" aria-label="แผนที่ ${panel.t}"><rect width="${W}" height="${H}" style="fill:var(--map)"/>${grid(H)}${lines}${marks}</svg><figcaption><span>${panel.t}</span><span>N ↑</span></figcaption></figure>`;
-}
-
 function overviewMap(){
-  const keys=Object.keys(PL);
-  const {H,P}=frame(keys, 50, 380, 300);
-  let lines='', dots='';
-  DAYS.forEach(d=>{
-    const pts=d.stops.map(s=>P(s.p).join(',')).join(' ');
-    lines+=`<polyline points="${pts}" style="fill:none;stroke:var(--halo);stroke-width:9;stroke-linejoin:round;stroke-linecap:round"/>`;
-    lines+=`<polyline points="${pts}" style="fill:none;stroke:var(${d.c});stroke-width:4;stroke-linejoin:round;stroke-linecap:round"/>`;
-  });
-  keys.forEach(k=>{const [x,y]=P(k); dots+=`<circle cx="${x}" cy="${y}" r="3.5" style="fill:var(--card);stroke:var(--ink);stroke-width:1.5"/>`;});
-  const reg=[["TOKYO","hotel",-10,-34,"middle"],["HAKONE","gora",0,-30,"middle"],["KAMAKURA","kamakura",0,34,"middle"],["NARITA","narita",-8,-18,"end"]];
-  let labels='';
-  reg.forEach(([t,k,ox,oy,an])=>{const [x,y]=P(k); labels+=`<text x="${x+ox}" y="${y+oy}" text-anchor="${an}" style="font-family:'Dela Gothic One',sans-serif;font-size:16px;letter-spacing:2px;fill:var(--ink);${HALO}">${t}</text>`;});
-  const leg = DAYS.map(d=>`<span style="--c:var(${d.c})"><i></i>Day ${d.id}</span>`).join('');
-  return `<figure><svg viewBox="0 0 ${W} ${H}" width="${W}" height="${H}" role="img" aria-label="แผนที่ภาพรวมทั้งทริป"><rect width="${W}" height="${H}" style="fill:var(--map)"/>${grid(H)}${lines}${dots}${labels}</svg><figcaption><span class="legend">${leg}</span><span>N ↑ · ~120 กม.</span></figcaption></figure>`;
+  return `<figure><iframe class="gmap" title="Google Maps ภาพรวม" loading="lazy" src="https://www.google.com/maps?output=embed&hl=th&ll=35.52,139.55&z=9"></iframe><figcaption><span>โตเกียว · ฮาโกเน่ · คามาคุระ</span><span>เลือกวันเพื่อดูเส้นทางจริง</span></figcaption></figure>`;
 }
-
-const MAPS=[];
-function tileLayer(){
-  const dark=document.documentElement.dataset.theme==='dark'||(document.documentElement.dataset.theme!=='light'&&matchMedia('(prefers-color-scheme: dark)').matches);
-  return L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:19,className:dark?'tiles-dark':'',attribution:'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'});
+function setLeg(d,i){
+  const l=legsOf(d).find(x=>x.i===i); if(!l) return;
+  const fr=document.getElementById('gmap'), u=gEmbed(l.a,l.b,l.walk);
+  if(fr.src!==u) fr.src=u;
+  view.querySelectorAll('.leg').forEach(b=>b.setAttribute('aria-pressed',String(+b.dataset.leg===i)));
+  view.querySelectorAll('.route .stop').forEach((li,k)=>li.classList.toggle('on',k===i||k===i-1));
+  document.getElementById('legcap').textContent=`${i}. ${PL[l.a].n} → ${i+1}. ${PL[l.b].n} · ${l.walk?'เดิน':'รถไฟ/รถ'}`;
 }
-const colOf=d=>getComputedStyle(document.documentElement).getPropertyValue(d.c).trim();
-const ll=k=>[PL[k].lat,PL[k].lng];
-function drawRoute(map,d,weight){
-  const col=colOf(d), S=d.stops;
-  for(let i=0;i<S.length-1;i++){
-    const a=S[i], b=S[i+1]; if(a.p===b.p) continue;
-    L.polyline([ll(a.p),ll(b.p)],{color:col,weight:weight+4,opacity:.35,interactive:false}).addTo(map);
-    L.polyline([ll(a.p),ll(b.p)],{color:col,weight,opacity:1,dashArray:b.walk?'2 10':null,lineCap:'round'}).addTo(map).bindTooltip(`${PL[b.p].n} · ${b.how}`,{sticky:true});
-  }
-  return col;
-}
-function mapBox(attrs,cap){ return `<figure><div class="lmap" ${attrs}></div><figcaption><span>${cap}</span><span>N ↑</span></figcaption></figure>`; }
-function dayMap(d,panel){ return mapBox(`data-day="${d.id}" data-keys="${panel.k.join(',')}"`, panel.t); }
-function overviewMap(){ return mapBox('data-day="0"', `<span class="legend">${DAYS.map(x=>`<span style="--c:var(${x.c})"><i></i>Day ${x.id}</span>`).join('')}</span>`).replace('<span>N ↑</span>','<span>N ↑ · ~120 กม.</span>'); }
-function initMaps(){
-  MAPS.splice(0).forEach(m=>m.remove());
-  if(!window.L) return;
-  view.querySelectorAll('.lmap').forEach(el=>{
-    const map=L.map(el,{scrollWheelZoom:false,zoomSnap:.25}); MAPS.push(map);
-    tileLayer().addTo(map);
-    const id=+el.dataset.day;
-    if(id===0){
-      DAYS.forEach(d=>drawRoute(map,d,4));
-      Object.keys(PL).forEach(k=>L.marker(ll(k),{icon:L.divIcon({className:'',html:'<span class="dot"></span>',iconSize:null})}).addTo(map).bindTooltip(PL[k].n));
-      map.fitBounds(L.latLngBounds(Object.keys(PL).map(ll)),{padding:[30,30]});
-    } else {
-      const d=DAYS.find(x=>x.id===id), col=drawRoute(map,d,5), nums={};
-      d.stops.forEach((s,i)=>(nums[s.p]=nums[s.p]||[]).push(i));
-      for(const [k,list] of Object.entries(nums)){
-        const tip=`<b>${PL[k].n}</b><br>`+list.map(i=>`${i+1}. ${d.stops[i].t} · ${d.stops[i].th}`).join('<br>');
-        L.marker(ll(k),{icon:L.divIcon({className:'',html:`<span class="pin" style="--c:${col}">${list.map(i=>i+1).join('·')}</span>`,iconSize:null}),zIndexOffset:100}).addTo(map).bindTooltip(tip,{direction:'top',offset:[0,-14]});
-      }
-      map.fitBounds(L.latLngBounds(el.dataset.keys.split(',').map(ll)),{padding:[45,45],maxZoom:15});
-    }
-  });
+function wireDay(d){
+  view.querySelectorAll('.leg').forEach(b=>b.addEventListener('click',()=>setLeg(d,+b.dataset.leg)));
+  const L=legsOf(d);
+  view.querySelectorAll('.route .stop').forEach((li,k)=>li.addEventListener('click',e=>{
+    if(e.target.closest('a')) return;
+    const l=L.find(x=>x.i===k)||L.find(x=>x.i===k+1); if(l) setLeg(d,l.i);
+    if(innerWidth<860) document.getElementById('gmap').scrollIntoView({behavior:'smooth',block:'center'});
+  }));
+  setLeg(d,L[0].i);
 }
 
 function routeList(d){
@@ -481,14 +432,114 @@ function render(id){
     const d=DAYS.find(x=>x.id===id);
     view.style.setProperty('--c',`var(${d.c})`);
     view.innerHTML=`<div class="dayhead"><div class="daynum">${d.id}</div><div class="daytitle"><span class="eyebrow">${d.date}</span><h2>${d.title}</h2></div><div class="chips"><span class="chip">บัตร <b>${d.pass}</b></span>${(d.buy||[]).map(([t,u])=>`<a class="chip" href="${u}" target="_blank" rel="noopener" style="text-decoration:none"><b>${t} ↗</b></a>`).join('')}</div><a class="btn" href="${d.gm}" target="_blank" rel="noopener">เปิดใน Google Maps ↗</a></div>
-    <div class="daygrid"><div class="maps">${d.panels.map(p=>dayMap(d,p)).join('')}<div class="legend" style="font-size:12px;color:var(--muted)"><span><i></i>รถไฟ / รถ / เรือ</span><span><i class="dash"></i>เดิน</span><span>ลาก/ซูมแผนที่ได้ · แตะหมุดดูรายละเอียด · เส้นที่วิ่งออกขอบ = ไปจุดนอกแผนที่</span></div></div><div class="routecard">${routeList(d)}</div></div>`;
+    <div class="daygrid"><div class="maps">${dayMap(d)}<div class="legend" style="font-size:12px;color:var(--muted)"><span>🚆 รถไฟ / รถ / เรือ</span><span>🚶 เดิน</span><span>แตะจุดในลิสต์หรือปุ่มช่วง เพื่อดูเส้นทางจริงช่วงนั้น</span></div></div><div class="routecard">${routeList(d)}</div></div>`;
   }
-  initMaps();
+  if(id) wireDay(DAYS.find(x=>x.id===id));
 }
 function go(id){ render(id); try{history.replaceState(null,'',id?'#day'+id:'#all')}catch(e){} }
 tabs.addEventListener('click',e=>{const b=e.target.closest('.tab'); if(b) go(+b.dataset.id);});
 const m=(location.hash||'').match(/day(\d)/);
 render(m?+m[1]:0);
+const BCATS = [
+  {k:"stay",n:"ที่พัก",c:"--d3"},{k:"fly",n:"ตั๋วเครื่องบิน / ประกัน",c:"--d5"},{k:"move",n:"เดินทางในญี่ปุ่น",c:"--d1"},
+  {k:"food",n:"อาหาร",c:"--d2"},{k:"fun",n:"ค่าเข้าชม / กิจกรรม",c:"--d4"},{k:"etc",n:"อื่นๆ",c:"--muted"}
+];
+// u: pp = ¥ ต่อคน · room = ¥ ต่อห้อง (×จำนวนห้อง ÷ คน) · thb = ฿ ต่อคน · q = จำนวนครั้ง/คืน
+const BITEMS = [
+  {c:"stay",d:"D1–D5",n:"Henn na Hotel Hamamatsucho",note:"ต่อห้องต่อคืน × 4 คืน · จองแล้วใส่ราคาจริง",u:"room",v:16000,q:4},
+  {c:"fly",d:"D1/D5",n:"ตั๋วเครื่องบินไป-กลับ",note:"ใส่ราคาจริง (บาท)",u:"thb",v:0},
+  {c:"fly",d:"—",n:"ประกันเดินทาง",note:"บาท",u:"thb",v:600},
+  {c:"move",d:"D1",n:"Keisei Access Express Narita → Daimon",u:"pp",v:1500},
+  {c:"move",d:"D1",n:"Oedo ไปสนาม + JR Harajuku กลับโรงแรม",u:"pp",v:450},
+  {c:"move",d:"D2",n:"JR Hamamatsucho ⇄ Shinjuku",u:"pp",v:420},
+  {c:"move",d:"D2",n:"Hakone Freepass 2 วัน",u:"pp",v:7100},
+  {c:"move",d:"D2",n:"Romancecar ไป-กลับ (ที่นั่ง)",u:"pp",v:2400},
+  {c:"move",d:"D3",n:"Oedo ไป-กลับสนามแข่ง",u:"pp",v:440},
+  {c:"move",d:"D3",n:"JR → Kamakura",u:"pp",v:950},
+  {c:"move",d:"D3",n:"Enoden Kamakura → Hase",u:"pp",v:260},
+  {c:"move",d:"D3",n:"JR Kamakura → Shibuya → โรงแรม",u:"pp",v:1160},
+  {c:"move",d:"D4",n:"รถไฟ/ใต้ดินทั้งวัน",u:"pp",v:1000},
+  {c:"move",d:"D5",n:"Keisei Daimon → Narita",u:"pp",v:1500},
+  {c:"food",d:"D1",n:"มื้อเที่ยงระหว่างทาง",u:"pp",v:1200},
+  {c:"food",d:"D1",n:"คาเฟ่ Omotesando",u:"pp",v:1200},
+  {c:"food",d:"D1",n:"มื้อเย็น Harajuku",u:"pp",v:2500},
+  {c:"food",d:"D2",n:"มื้อเช้า konbini",u:"pp",v:600},
+  {c:"food",d:"D2",n:"ไข่ดำ Owakudani",u:"pp",v:500},
+  {c:"food",d:"D2",n:"มื้อเที่ยงฮาโกเน่",u:"pp",v:1800},
+  {c:"food",d:"D2",n:"มื้อเย็น",u:"pp",v:2500},
+  {c:"food",d:"D3",n:"มื้อเช้าก่อนวิ่ง + เกลือแร่",u:"pp",v:1000},
+  {c:"food",d:"D3",n:"ของกิน Komachi-dori",u:"pp",v:2000},
+  {c:"food",d:"D3",n:"มื้อเย็นฉลองจบ Shibuya",u:"pp",v:3500},
+  {c:"food",d:"D4",n:"มื้อเช้า Yanaka Ginza",u:"pp",v:1000},
+  {c:"food",d:"D4",n:"มื้อเที่ยง Ueno",u:"pp",v:1500},
+  {c:"food",d:"D4",n:"คาเฟ่ Nakameguro",u:"pp",v:1200},
+  {c:"food",d:"D4",n:"มื้อเย็น",u:"pp",v:2500},
+  {c:"food",d:"D5",n:"มื้อเช้า + สนามบิน",u:"pp",v:2300},
+  {c:"food",d:"ทุกวัน",n:"น้ำ / ขนม / ตู้กดน้ำ",note:"~¥500 × 5 วัน",u:"pp",v:2500},
+  {c:"fun",d:"D3",n:"ค่าสมัคร Tokyo Legacy Half",note:"ถ้าจ่ายแล้วปล่อยเป็น 0",u:"pp",v:0},
+  {c:"fun",d:"D2",n:"Private Onsen 1 ชม. (Hakone-Yumoto)",note:"ต่อห้อง",u:"room",v:6000},
+  {c:"fun",d:"D2",n:"Hakone Shrine",note:"ฟรี",u:"pp",v:0},
+  {c:"fun",d:"D3",n:"Kotoku-in พระใหญ่",u:"pp",v:300},
+  {c:"fun",d:"D3",n:"Hase-dera",u:"pp",v:400},
+  {c:"fun",d:"D4",n:"Shinjuku Gyoen",note:"ปิดวันจันทร์ ถ้าไป Yoyogi Park ฟรี",u:"pp",v:500},
+  {c:"etc",d:"—",n:"eSIM / เน็ต 5 วัน",u:"pp",v:1500},
+  {c:"etc",d:"—",n:"ช้อปปิ้ง / ของฝาก",u:"pp",v:20000},
+  {c:"etc",d:"—",n:"เงินสำรองฉุกเฉิน",u:"pp",v:5000}
+];
+const BKEY='trip_budget_v1', BDEF={people:2,rooms:1,rate:0.22};
+let BST={...BDEF,v:{}};
+try{ Object.assign(BST, JSON.parse(localStorage.getItem(BKEY)||'{}')); }catch(e){}
+const bSave=()=>{ try{ localStorage.setItem(BKEY,JSON.stringify(BST)); }catch(e){} };
+const bVal=i=>i in BST.v?BST.v[i]:BITEMS[i].v;
+const yen=n=>'¥'+Math.round(n).toLocaleString('en-US'), thb=n=>'฿'+Math.round(n).toLocaleString('en-US');
+// per-person cost of item i, in yen and baht
+function bPP(i){
+  const it=BITEMS[i], v=+bVal(i)||0, q=it.q||1, N=Math.max(1,BST.people), R=Math.max(1,BST.rooms);
+  if(it.u==='thb') return {y:v/(BST.rate||1), b:v};
+  const y = it.u==='room' ? v*q*R/N : v*q;
+  return {y, b:y*BST.rate};
+}
+function bRender(){
+  const tot={}; let all=0, allB=0;
+  BITEMS.forEach((it,i)=>{ const p=bPP(i); tot[it.c]=(tot[it.c]||0)+p.b; allB+=p.b; all+=p.y; });
+  const N=Math.max(1,BST.people);
+  document.getElementById('bSum').innerHTML=
+    `<div><span>รวมต่อคน</span><b>${thb(allB)}</b><small>${yen(all)}</small></div>`+
+    `<div><span>รวมทั้งกลุ่ม (${N} คน)</span><b>${thb(allB*N)}</b><small>${yen(all*N)}</small></div>`+
+    `<div><span>ไม่รวมช้อปปิ้ง/ตั๋วเครื่องบิน ต่อคน</span><b>${thb(allB-bPP(BITEMS.findIndex(x=>x.n.startsWith('ช้อปปิ้ง'))).b-bPP(1).b)}</b><small>ใช้จริงระหว่างทริป</small></div>`+
+    `<div><span>เฉลี่ยต่อวัน ต่อคน</span><b>${thb((allB-bPP(1).b)/5)}</b><small>5 วัน ไม่รวมตั๋วบิน</small></div>`;
+  document.getElementById('bBar').innerHTML=BCATS.map(c=>`<i style="--c:var(${c.c});width:${allB?tot[c.k]/allB*100:0}%" title="${c.n}"></i>`).join('');
+  document.getElementById('bLeg').innerHTML=BCATS.map(c=>`<span style="--c:var(${c.c})">${c.n} ${allB?Math.round(tot[c.k]/allB*100):0}%</span>`).join('');
+  let h=`<thead><tr><th>วัน</th><th>รายการ</th><th class="n">ราคา</th><th class="n">ต่อคน ¥</th><th class="n">ต่อคน ฿</th></tr></thead><tbody>`;
+  BCATS.forEach(c=>{
+    h+=`<tr class="cat" style="--c:var(${c.c})"><td colspan="4">${c.n}</td><td class="n">${thb(tot[c.k]||0)}</td></tr>`;
+    BITEMS.forEach((it,i)=>{ if(it.c!==c.k) return; const p=bPP(i);
+      const unit=it.u==='thb'?'฿/คน':it.u==='room'?(it.q>1?`¥/ห้อง × ${it.q}`:'¥/ห้อง'):'¥/คน';
+      h+=`<tr><td>${it.d}</td><td>${it.n}${it.note?`<span class="note">${it.note}</span>`:''}</td><td class="n"><input type="number" min="0" step="10" data-b="${i}" value="${bVal(i)}" aria-label="${it.n}"><span class="unit">${unit}</span></td><td class="n" data-y="${i}">${yen(p.y)}</td><td class="n" data-t="${i}">${thb(p.b)}</td></tr>`;
+    });
+  });
+  h+=`</tbody><tfoot><tr><td colspan="3">รวมต่อคน</td><td class="n">${yen(all)}</td><td class="n">${thb(allB)}</td></tr></tfoot>`;
+  document.getElementById('bTable').innerHTML=h;
+}
+// typing in an amount: refresh numbers only, keep the input being edited
+function bUpdate(){
+  const tb=document.getElementById('bTable');
+  const tmp=document.createElement('div'); tmp.hidden=true; document.body.append(tmp);
+  const real=tb; tb.id='bTableOld'; const nt=document.createElement('table'); nt.id='bTable'; tmp.append(nt);
+  bRender();
+  real.querySelectorAll('[data-y],[data-t],tr.cat td.n,tfoot td.n').forEach((td,k)=>{ td.textContent=nt.querySelectorAll('[data-y],[data-t],tr.cat td.n,tfoot td.n')[k].textContent; });
+  tmp.remove(); real.id='bTable';
+}
+function bInit(){
+  const P=document.getElementById('bPeople'), R=document.getElementById('bRooms'), X=document.getElementById('bRate');
+  P.value=BST.people; R.value=BST.rooms; X.value=BST.rate;
+  const top=()=>{ BST.people=Math.max(1,+P.value||1); BST.rooms=Math.max(1,+R.value||1); BST.rate=+X.value||BDEF.rate; bSave(); bRender(); };
+  [P,R,X].forEach(el=>el.addEventListener('input',top));
+  document.getElementById('bTable').addEventListener('input',e=>{ const i=e.target.dataset.b; if(i==null) return; BST.v[i]=Math.max(0,+e.target.value||0); bSave(); bUpdate(); });
+  document.getElementById('bReset').addEventListener('click',()=>{ BST={...BDEF,v:{}}; bSave(); P.value=BST.people; R.value=BST.rooms; X.value=BST.rate; bRender(); });
+  bRender();
+}
+bInit();
 addEventListener('hashchange',()=>{const h=(location.hash||'').match(/day(\d)/); render(h?+h[1]:0);});
 </script>
 
