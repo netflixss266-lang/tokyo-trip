@@ -1,0 +1,442 @@
+<!doctype html><html><head><meta charset="utf-8"><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style><title>Tokyo &amp; Hakone Trip · 16–20 Oct 2026</title>
+<meta name="description" content="มาราธอน ออนเซ็น ธรรมชาติ ของกิน — 5 วัน 5 สาย Tokyo / Hakone / Kamakura">
+<meta property="og:type" content="website">
+<meta property="og:title" content="TOKYO &amp; HAKONE · 16–20 OCT 2026">
+<meta property="og:description" content="มาราธอน ออนเซ็น ธรรมชาติ ของกิน — 5 วัน 5 สาย พร้อมแผนที่และตั๋วที่ต้องซื้อ">
+<meta name="theme-color" content="#131820">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🗻</text></svg>">
+</head><body>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anuphan:wght@400;500;600;700&family=Dela+Gothic+One&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>
+/* Layout: rail-network trip guide — hero line bar, ticket stubs, line-coloured day tabs, schematic map + route diagram per day */
+:root{
+  --bg:#eef1f4; --card:#ffffff; --ink:#131820; --muted:#5a6575; --rule:#d6dce4;
+  --map:#e4eaf0; --grid:#d4dbe3; --halo:#e4eaf0;
+  --d1:#2c9a4c; --d2:#e0690a; --d3:#1f68cc; --d4:#c0177a; --d5:#66707e;
+  --warn:#a8480a; --warnbg:#fcefe2;
+  --display:"Dela Gothic One","Anuphan",system-ui,sans-serif;
+  --body:"Anuphan",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,Menlo,monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0e1217; --card:#161b22; --ink:#e7ecf2; --muted:#94a1b2; --rule:#29313c;
+    --map:#1a2029; --grid:#252d38; --halo:#1a2029;
+    --d1:#41c26a; --d2:#ff8c2e; --d3:#5193f2; --d4:#ec4aa2; --d5:#8f99a8;
+    --warn:#f2a660; --warnbg:#2b1e11; color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0e1217; --card:#161b22; --ink:#e7ecf2; --muted:#94a1b2; --rule:#29313c;
+  --map:#1a2029; --grid:#252d38; --halo:#1a2029;
+  --d1:#41c26a; --d2:#ff8c2e; --d3:#5193f2; --d4:#ec4aa2; --d5:#8f99a8;
+  --warn:#f2a660; --warnbg:#2b1e11; color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.6}
+.wrap{max-width:1100px;margin:0 auto;padding-inline:16px;padding-block:28px 64px;display:flex;flex-direction:column;gap:36px}
+a{color:inherit}
+h1,h2,h3{margin:0;text-wrap:balance}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.14em;color:var(--muted);text-transform:uppercase}
+
+/* hero */
+.hero{display:flex;flex-direction:column;gap:14px}
+.hero h1{font-family:var(--display);font-weight:400;font-size:clamp(40px,9vw,84px);line-height:.95;letter-spacing:.01em}
+.hero p{margin:0;color:var(--muted);max-width:60ch}
+.linebar{display:grid;grid-template-columns:repeat(5,1fr);gap:4px;margin-top:6px}
+.linebar span{display:flex;flex-direction:column;gap:6px;font-family:var(--mono);font-size:11px;color:var(--muted)}
+.linebar span::before{content:"";height:8px;border-radius:4px;background:var(--c)}
+
+/* tickets */
+.section-head{display:flex;flex-direction:column;gap:4px;margin-bottom:14px}
+.section-head h2{font-size:22px;font-weight:700}
+.tickets{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px}
+.ticket{position:relative;background:var(--card);border:1px solid var(--rule);border-radius:12px;padding:18px 18px 18px 30px;display:flex;flex-direction:column;gap:6px;overflow:hidden}
+.ticket::before{content:"";position:absolute;inset:0 auto 0 0;width:12px;background:var(--c)}
+.ticket::after{content:"";position:absolute;left:18px;top:10px;bottom:10px;border-left:2px dotted var(--rule)}
+.ticket .tag{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--c);font-weight:700}
+.ticket h3{font-size:20px;font-weight:700}
+.ticket p{margin:0;color:var(--muted);font-size:14px}
+.buys{display:flex;flex-wrap:wrap;gap:8px}
+.buy{align-self:flex-start;margin-top:6px;display:inline-flex;padding:7px 12px;border-radius:8px;background:var(--c);color:#fff;text-decoration:none;font-weight:600;font-size:13px}
+.buy:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+.stopbuy{align-self:flex-start;margin-top:4px;font-size:13px;font-weight:600;color:var(--c);text-decoration:underline;text-underline-offset:3px}
+.ticket .price{font-family:var(--mono);font-weight:700;font-size:15px;margin-top:4px;font-variant-numeric:tabular-nums}
+.verdict{margin-top:14px;display:flex;flex-wrap:wrap;gap:8px 20px;align-items:baseline;font-size:14px;color:var(--muted)}
+.verdict b{color:var(--ink)}
+.verdict .total{font-family:var(--mono);color:var(--ink);font-weight:700}
+
+/* tabs */
+.tabs{display:flex;flex-wrap:wrap;gap:8px}
+.tab{appearance:none;border:1px solid var(--rule);background:var(--card);color:var(--ink);font:inherit;font-size:14px;font-weight:600;padding:8px 14px 8px 8px;border-radius:999px;display:inline-flex;align-items:center;gap:8px;cursor:pointer}
+.tab .sq{width:26px;height:26px;border-radius:7px;background:var(--c);color:#fff;font-family:var(--mono);font-size:12px;display:grid;place-items:center}
+.tab[aria-selected="true"]{border-color:var(--c);box-shadow:inset 0 0 0 1px var(--c)}
+.tab:focus-visible{outline:2px solid var(--c);outline-offset:2px}
+.tab small{font-weight:400;color:var(--muted)}
+
+/* day view */
+.view{display:flex;flex-direction:column;gap:18px}
+.dayhead{display:flex;flex-wrap:wrap;align-items:center;gap:14px 18px}
+.daynum{width:64px;height:64px;border-radius:16px;background:var(--c);color:#fff;font-family:var(--display);font-size:30px;display:grid;place-items:center;flex:none}
+.daytitle{display:flex;flex-direction:column;gap:2px;min-width:0;flex:1 1 260px}
+.daytitle h2{font-size:clamp(22px,3.4vw,30px);font-weight:700;line-height:1.2}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{font-size:13px;padding:4px 10px;border-radius:999px;border:1px solid var(--rule);background:var(--card)}
+.chip b{color:var(--c)}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:10px 16px;border-radius:10px;background:var(--c);color:#fff;text-decoration:none;font-weight:600;font-size:14px}
+.btn:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+.daygrid{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:20px;align-items:start}
+@media (max-width:860px){.daygrid{grid-template-columns:minmax(0,1fr)}}
+.maps{display:flex;flex-direction:column;gap:14px;min-width:0}
+figure{margin:0;background:var(--map);border-radius:14px;overflow:hidden;border:1px solid var(--rule)}
+figure svg{display:block;width:100%;height:auto;max-width:100%}
+figcaption{display:flex;justify-content:space-between;gap:10px;padding:8px 14px;font-size:12px;color:var(--muted);border-top:1px solid var(--rule);background:var(--card);font-family:var(--mono)}
+.legend{display:flex;gap:14px;flex-wrap:wrap}
+.legend i{display:inline-block;width:22px;height:0;border-top:4px solid var(--c);vertical-align:middle;margin-right:6px}
+.legend i.dash{border-top-style:dashed}
+
+/* route diagram */
+.routecard{background:var(--card);border:1px solid var(--rule);border-radius:14px;padding:18px 16px 6px;min-width:0}
+.route{list-style:none;margin:0;padding:0}
+.stop{display:grid;grid-template-columns:52px 34px minmax(0,1fr);column-gap:8px;padding-bottom:18px;position:relative}
+.time{font-family:var(--mono);font-size:13px;font-weight:700;padding-top:3px;font-variant-numeric:tabular-nums}
+.node{position:relative}
+.node::before,.node::after{content:"";position:absolute;left:50%;transform:translateX(-50%);border-left:5px solid var(--c)}
+.node::before{top:0;height:15px}
+.node::after{top:15px;bottom:-18px}
+.stop.walk .node::before{border-left-style:dotted}
+.stop.nextwalk .node::after{border-left-style:dotted}
+.stop:first-child .node::before,.stop:last-child .node::after{display:none}
+.node b{position:relative;z-index:1;display:grid;place-items:center;width:28px;height:28px;margin:1px auto 0;border-radius:8px;background:var(--card);border:3px solid var(--c);font-family:var(--mono);font-size:12px}
+.info{display:flex;flex-direction:column;gap:2px;min-width:0}
+.nm{font-weight:700;font-size:15px;line-height:1.35}
+.th{font-size:14px;color:var(--ink)}
+.how{font-size:13px;color:var(--muted)}
+.how::before{content:"เดินทาง · ";font-family:var(--mono);font-size:11px;letter-spacing:.05em;color:var(--c)}
+.warnline{margin-top:4px;font-size:13px;color:var(--warn);background:var(--warnbg);padding:4px 8px;border-radius:6px;align-self:start}
+
+/* overview */
+.ovlist{display:flex;flex-direction:column;gap:10px}
+.ovrow{appearance:none;text-align:left;font:inherit;color:inherit;background:var(--card);border:1px solid var(--rule);border-left:6px solid var(--c);border-radius:10px;padding:12px 14px;display:flex;flex-direction:column;gap:2px;cursor:pointer}
+.ovrow:hover{border-color:var(--c)}
+.ovrow:focus-visible{outline:2px solid var(--c);outline-offset:2px}
+.ovrow .d{font-family:var(--mono);font-size:12px;color:var(--c);font-weight:700}
+.ovrow .t{font-weight:700}
+.ovrow .r{font-size:13px;color:var(--muted)}
+
+/* notes */
+.cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px}
+.panel{background:var(--card);border:1px solid var(--rule);border-radius:14px;padding:20px}
+.panel h2{font-size:19px;margin-bottom:10px}
+.panel ul{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:8px;font-size:14px}
+.panel p{margin:0 0 12px;font-size:14px;color:var(--muted)}
+.tablewrap{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:14px}
+th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--rule);vertical-align:top}
+th{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:500}
+td:first-child{white-space:nowrap;font-weight:600}
+.sources{font-size:13px;color:var(--muted);display:flex;flex-wrap:wrap;gap:6px 18px}
+.sources a{color:var(--muted)}
+@media (prefers-reduced-motion:no-preference){.view{animation:in .25s ease}@keyframes in{from{opacity:.4;transform:translateY(4px)}to{opacity:1;transform:none}}}
+</style>
+
+<div class="wrap">
+  <header class="hero">
+    <div class="eyebrow">16–20 OCT 2026 · Tokyo / Hakone / Kamakura</div>
+    <h1>TOKYO<br>&amp; HAKONE</h1>
+    <p>มาราธอน ออนเซ็น ธรรมชาติ ของกิน — 5 วัน 5 สาย ทุกวันเริ่มและจบที่ Henn na Hotel Hamamatsucho</p>
+    <div class="linebar" aria-hidden="true">
+      <span style="--c:var(--d1)">D1 · BIB</span>
+      <span style="--c:var(--d2)">D2 · HAKONE</span>
+      <span style="--c:var(--d3)">D3 · RACE</span>
+      <span style="--c:var(--d4)">D4 · CITY</span>
+      <span style="--c:var(--d5)">D5 · HOME</span>
+    </div>
+  </header>
+
+  <section>
+    <div class="section-head">
+      <span class="eyebrow">Tickets</span>
+      <h2>บัตรที่ต้องมี</h2>
+    </div>
+    <div class="tickets">
+      <article class="ticket" style="--c:var(--d1)">
+        <span class="tag">หลัก · ใช้ทุกวัน</span>
+        <h3>Suica</h3>
+        <p>แตะได้ทั้ง JR, รถไฟใต้ดิน, Enoden ที่คามาคุระ แอดใน Apple Wallet ได้ หรือซื้อ Welcome Suica ที่สนามบิน</p>
+        <span class="price">เติม ~¥5,000–6,000 / คน</span>
+        <a class="buy" href="https://apps.apple.com/us/app/id6738336566" target="_blank" rel="noopener">โหลดแอป Welcome Suica ↗</a>
+      </article>
+      <article class="ticket" style="--c:var(--d2)">
+        <span class="tag">Day 2 เท่านั้น</span>
+        <h3>Hakone Freepass + Romancecar</h3>
+        <p>Freepass 2 วันจากชินจูกุ ครอบคลุมรถไฟภูเขา cable car ropeway เรือ บัส · Romancecar จองที่นั่งแยก</p>
+        <span class="price">¥7,100 + ¥2,400 = ¥9,500</span>
+        <span class="buys"><a class="buy" href="https://odakyu-global.com/passes/hako" target="_blank" rel="noopener">ซื้อ Freepass ↗</a><a class="buy" href="https://www.odakyu.jp/english/?p=3969" target="_blank" rel="noopener">จอง Romancecar ↗</a></span>
+      </article>
+      <article class="ticket" style="--c:var(--d5)">
+        <span class="tag">ทางเลือก · สนามบิน</span>
+        <h3>N'EX Round Trip</h3>
+        <p>นั่งสบายถึง Tokyo แล้วต่อ JR · หรือประหยัดกว่าด้วย Suica ขึ้น Keisei Access Express ไปถึง Daimon ตรงๆ</p>
+        <span class="price">~¥5,000–5,200 · Keisei ~¥3,000</span>
+        <a class="buy" href="https://www.jreast.co.jp/multi/en/nex/tickets" target="_blank" rel="noopener">ซื้อ N'EX ↗</a>
+      </article>
+    </div>
+    <div class="verdict">
+      <span><b>ไม่ต้องซื้อ</b> JR Pass และ Tokyo Subway Ticket (จุดหลักอยู่บน JR Yamanote ที่พาสใต้ดินไม่ครอบคลุม)</span>
+      <span>รวมค่าเดินทาง <span class="total">~¥18,000–21,000</span> / คน</span>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <span class="eyebrow">Route</span>
+      <h2>เส้นทางรายวัน</h2>
+    </div>
+    <div class="tabs" role="tablist" id="tabs"></div>
+    <div class="view" id="view" style="margin-top:20px"></div>
+  </section>
+
+  <section class="cols">
+    <div class="panel">
+      <h2>ข้อควรระวัง</h2>
+      <ul>
+        <li><b>Shinjuku Gyoen ปิดวันจันทร์</b> ตรงกับ Day 4 พิพิธภัณฑ์ส่วนใหญ่ใน Ueno ก็ปิด</li>
+        <li><b>ฮาโกเน่วันก่อนวิ่ง</b> เดินทางไปกลับ ~4 ชม. และแช่ออนเซ็นก่อนแข่ง ขาอาจไม่สด</li>
+        <li><b>คามาคุระหลังวิ่ง 21 กม.</b> ศาลเจ้าและวัดมีบันไดเยอะ เหนื่อยตัด Hase-dera ได้</li>
+        <li><b>ฮาโกเน่วันเสาร์คนแน่น</b> จอง Romancecar ล่วงหน้า</li>
+        <li><b>Owakudani ropeway ปิดบ่อย</b> เมื่อลมแรงหรือก๊าซภูเขาไฟสูง เช็กเช้าวันนั้น</li>
+        <li><b>ใบไม้ยังไม่เปลี่ยนสี</b> กลางตุลา แปะก๊วย Gaien ยังเขียว (เหลืองปลาย พ.ย.)</li>
+      </ul>
+    </div>
+    <div class="panel">
+      <h2>ทางเลือก: สลับวันให้ขาสดวันวิ่ง</h2>
+      <p>ย้ายฮาโกเน่ไปหลังวิ่ง แช่ออนเซ็นตอนฟื้นตัว เลี่ยงคนเสาร์ และไม่เจอสวนปิดวันจันทร์ แลกกับตัด Ueno / Shinjuku Gyoen</p>
+      <div class="tablewrap">
+        <table>
+          <thead><tr><th>วัน</th><th>แผนเดิม</th><th>แผนสลับ</th></tr></thead>
+          <tbody>
+            <tr><td>D2 เสาร์</td><td>Hakone</td><td>Kamakura เช้า–บ่าย + Yanaka เย็น</td></tr>
+            <tr><td>D3 อาทิตย์</td><td>วิ่ง + Kamakura + Shibuya</td><td>วิ่ง → พัก → Shibuya เย็น</td></tr>
+            <tr><td>D4 จันทร์</td><td>Yanaka / Ueno / Gyoen / Nakameguro</td><td>Hakone + Private Onsen</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <footer class="sources">
+    <span>แผนที่เป็นแบบ schematic เวลาเป็นการประมาณ</span>
+    <a href="https://odakyu-global.com/passes/hako" target="_blank" rel="noopener">Odakyu · Hakone Freepass</a>
+    <a href="https://www.tokyometro.jp/kr/ticket/travel" target="_blank" rel="noopener">Tokyo Metro · Subway Ticket</a>
+    <a href="https://watabi.org/en/products" target="_blank" rel="noopener">WaTabi · 2026 prices</a>
+  </footer>
+</div>
+
+<script>
+const PL = {
+  narita:{n:"Narita Airport",lat:35.7720,lng:140.3929},
+  hotel:{n:"Henn na Hotel",lat:35.6556,lng:139.7570},
+  stadium:{n:"National Stadium",lat:35.6779,lng:139.7145},
+  gaien:{n:"Jingu Gaien",lat:35.6745,lng:139.7195},
+  omotesando:{n:"Omotesando",lat:35.6654,lng:139.7121},
+  harajuku:{n:"Harajuku",lat:35.6716,lng:139.7036},
+  shinjuku:{n:"Shinjuku",lat:35.6900,lng:139.7003},
+  yumoto:{n:"Hakone-Yumoto",lat:35.2327,lng:139.1050},
+  gora:{n:"Gora",lat:35.2502,lng:139.0466},
+  owakudani:{n:"Owakudani",lat:35.2440,lng:139.0196},
+  togendai:{n:"Togendai",lat:35.2560,lng:139.0050},
+  shrine:{n:"Hakone Shrine",lat:35.2048,lng:139.0254},
+  kamakura:{n:"Kamakura Stn",lat:35.3195,lng:139.5508},
+  hachiman:{n:"Hachimangu",lat:35.3260,lng:139.5563},
+  buddha:{n:"Great Buddha",lat:35.3167,lng:139.5357},
+  hase:{n:"Hase-dera",lat:35.3125,lng:139.5330},
+  shibuya:{n:"Shibuya",lat:35.6595,lng:139.7005},
+  yanaka:{n:"Yanaka Ginza",lat:35.7276,lng:139.7660},
+  ueno:{n:"Ueno Park",lat:35.7148,lng:139.7737},
+  gyoen:{n:"Shinjuku Gyoen",lat:35.6852,lng:139.7101},
+  nakameguro:{n:"Nakameguro",lat:35.6440,lng:139.6990}
+};
+
+const DAYS = [
+ {id:1,c:"--d1",date:"ศุกร์ 16 ต.ค.",title:"ถึงโตเกียว + รับ BIB",pass:"Suica (หรือ N'EX)",buy:[["ซื้อ N'EX","https://www.jreast.co.jp/multi/en/nex/tickets"]],
+  gm:"https://www.google.com/maps/dir/Narita+International+Airport/Henn+na+Hotel+Tokyo+Hamamatsucho/Japan+National+Stadium/Jingu+Gaien+Ginkgo+Avenue/Omotesando+Station/Takeshita+Street+Harajuku",
+  panels:[{t:"โตเกียว · Gaien–Harajuku",k:["hotel","stadium","gaien","omotesando","harajuku"]}],
+  stops:[
+   {p:"narita",t:"เช้า",th:"ลงเครื่อง",how:"—",buy:[["ซื้อ N'EX Round Trip","https://www.jreast.co.jp/multi/en/nex/tickets"]]},
+   {p:"hotel",t:"12:30",th:"Check-in / ฝากกระเป๋า",how:"Keisei Access Express ถึง Daimon หรือ N'EX + JR"},
+   {p:"stadium",t:"15:00",th:"รับ BIB · Gate B · เปิด 11:00–20:30",how:"สาย Oedo: Daimon → Kokuritsu-Kyogijo",w:"ต้องพก Photo ID"},
+   {p:"gaien",t:"16:30",th:"ถนนต้นแปะก๊วย",how:"เดิน",walk:1},
+   {p:"omotesando",t:"17:15",th:"ช้อปปิ้ง / คาเฟ่",how:"เดิน",walk:1},
+   {p:"harajuku",t:"18:30",th:"Takeshita Street + Dinner",how:"เดิน · กลับโรงแรมด้วย JR Yamanote",walk:1}
+  ]},
+ {id:2,c:"--d2",date:"เสาร์ 17 ต.ค.",title:"Hakone 1 Day Trip",pass:"Hakone Freepass + Romancecar",buy:[["ซื้อ Freepass","https://odakyu-global.com/passes/hako"],["จอง Romancecar","https://www.odakyu.jp/english/?p=3969"]],
+  gm:"https://www.google.com/maps/dir/Henn+na+Hotel+Tokyo+Hamamatsucho/Shinjuku+Station/Hakone-Yumoto+Station/Gora+Station/Owakudani/Togendai+Port/Hakone+Shrine/Hakone-Yumoto+Station/Shinjuku+Station",
+  panels:[{t:"ฮาโกเน่ · ลูปมาตรฐาน",k:["yumoto","gora","owakudani","togendai","shrine"]}],
+  stops:[
+   {p:"hotel",t:"06:45",th:"ออกจากโรงแรม",how:"—"},
+   {p:"shinjuku",t:"07:30",th:"สถานี Odakyu",how:"JR Yamanote (Suica)",w:"จอง Romancecar ล่วงหน้า",buy:[["จอง Romancecar","https://www.odakyu.jp/english/?p=3969"],["ซื้อ Hakone Freepass","https://odakyu-global.com/passes/hako"]]},
+   {p:"yumoto",t:"09:00",th:"เริ่มใช้ Freepass",how:"Romancecar ~80 นาที"},
+   {p:"gora",t:"10:00",th:"ต่อ Cable Car",how:"Hakone Tozan Train"},
+   {p:"owakudani",t:"11:00",th:"หุบไอน้ำ · ไข่ดำ",how:"Cable Car + Ropeway",w:"Ropeway ปิดเมื่อลมแรง เช็กเช้าวันนั้น"},
+   {p:"togendai",t:"12:30",th:"ล่องเรือ Lake Ashi → Moto-Hakone",how:"Ropeway"},
+   {p:"shrine",t:"13:30",th:"Torii ริมทะเลสาบ",how:"เรือ + เดิน"},
+   {p:"yumoto",t:"15:00",th:"Private Onsen 1–2 ชม.",how:"บัส Hakone Tozan"},
+   {p:"shinjuku",t:"18:30",th:"ต่อ Tokyo Tower / Ginza / กลับโรงแรม",how:"Romancecar"}
+  ]},
+ {id:3,c:"--d3",date:"อาทิตย์ 18 ต.ค.",title:"Tokyo Legacy Half + Kamakura + Shibuya",pass:"Suica",
+  gm:"https://www.google.com/maps/dir/Henn+na+Hotel+Tokyo+Hamamatsucho/Japan+National+Stadium/Henn+na+Hotel+Tokyo+Hamamatsucho/Kamakura+Station/Tsurugaoka+Hachimangu/Kotoku-in/Hase-dera/Shibuya+Scramble+Crossing",
+  panels:[{t:"โตเกียว · สนามแข่ง–Shibuya",k:["hotel","stadium","shibuya"]},{t:"คามาคุระ · ~1 ชม. จากโตเกียว",k:["kamakura","hachiman","buddha","hase"]}],
+  stops:[
+   {p:"hotel",t:"06:00",th:"ออกไปสนาม",how:"—",w:"เช็กเวลารถเที่ยวแรกสาย Oedo"},
+   {p:"stadium",t:"06:30",th:"ปล่อยตัว 08:05 · 21.1 กม. · จบ ~11:05",how:"สาย Oedo จาก Daimon"},
+   {p:"hotel",t:"11:45",th:"อาบน้ำ เปลี่ยนชุด",how:"สาย Oedo"},
+   {p:"kamakura",t:"13:15",th:"Komachi-dori · กินเที่ยง",how:"JR Yokosuka Line ~1 ชม."},
+   {p:"hachiman",t:"14:00",th:"Tsurugaoka Hachimangu",how:"เดิน",walk:1},
+   {p:"buddha",t:"15:00",th:"Kotoku-in พระใหญ่",how:"Enoden: Kamakura → Hase"},
+   {p:"hase",t:"15:45",th:"วัด Hase-dera",how:"เดิน ~5 นาที",walk:1,w:"บันไดเยอะ ถ้าเหนื่อยตัดทิ้งได้"},
+   {p:"shibuya",t:"18:30",th:"Scramble Crossing · Hachiko",how:"Enoden → JR Shonan-Shinjuku Line ตรง"}
+  ]},
+ {id:4,c:"--d4",date:"จันทร์ 19 ต.ค.",title:"อาหาร · ธรรมชาติ · คาเฟ่",pass:"Suica",
+  gm:"https://www.google.com/maps/dir/Henn+na+Hotel+Tokyo+Hamamatsucho/Yanaka+Ginza/Ueno+Park/Shinjuku+Gyoen/Nakameguro+Station/Henn+na+Hotel+Tokyo+Hamamatsucho",
+  panels:[{t:"โตเกียว · เหนือ → ตะวันตก",k:["hotel","yanaka","ueno","gyoen","nakameguro"]}],
+  stops:[
+   {p:"hotel",t:"08:15",th:"ออกจากโรงแรม",how:"—"},
+   {p:"yanaka",t:"09:00",th:"ย่านเมืองเก่า · อาหารเช้า",how:"JR Yamanote → Nippori"},
+   {p:"ueno",t:"10:30",th:"สวน + กินเที่ยงแถว Ueno",how:"เดิน",walk:1,w:"พิพิธภัณฑ์ส่วนใหญ่ปิดวันจันทร์"},
+   {p:"gyoen",t:"14:00",th:"สวนญี่ปุ่น",how:"Ginza Line → Marunouchi Line",w:"ปิดวันจันทร์ — เปลี่ยนเป็น Yoyogi Park แทนได้"},
+   {p:"nakameguro",t:"17:30",th:"คาเฟ่ริมแม่น้ำ Meguro",how:"รถไฟใต้ดิน"},
+   {p:"hotel",t:"21:00",th:"พักผ่อน",how:"Hibiya Line"}
+  ]},
+ {id:5,c:"--d5",date:"อังคาร 20 ต.ค.",title:"เดินทางกลับ",pass:"Suica หรือ N'EX",buy:[["ซื้อ N'EX","https://www.jreast.co.jp/multi/en/nex/tickets"]],
+  gm:"https://www.google.com/maps/dir/Henn+na+Hotel+Tokyo+Hamamatsucho/Narita+International+Airport",
+  panels:[{t:"โรงแรม → สนามบิน ~60 กม.",k:["hotel","narita"]}],
+  stops:[
+   {p:"hotel",t:"เช้า",th:"Check-out",how:"—"},
+   {p:"narita",t:"ตามไฟลต์",th:"เผื่อเช็กอิน 2 ชม.",how:"Keisei จาก Daimon หรือ JR → Tokyo → N'EX (1–1.5 ชม.)"}
+  ]}
+];
+
+const K = Math.cos(35.5*Math.PI/180);
+const pr = k => [PL[k].lng*K, -PL[k].lat];
+const W = 560;
+
+function frame(keys, pad, hmax, hmin){
+  const xy = keys.map(pr);
+  const xs = xy.map(a=>a[0]), ys = xy.map(a=>a[1]);
+  const minx=Math.min(...xs),maxx=Math.max(...xs),miny=Math.min(...ys),maxy=Math.max(...ys);
+  const sx=Math.max(maxx-minx,.006), sy=Math.max(maxy-miny,.006);
+  const sc=Math.min((W-2*pad)/sx,(hmax-2*pad)/sy);
+  const H=Math.max(hmin, Math.round(sy*sc+2*pad));
+  const cx=(minx+maxx)/2, cy=(miny+maxy)/2;
+  return {H, P:k=>{const [x,y]=pr(k);return [W/2+(x-cx)*sc, H/2+(y-cy)*sc]}};
+}
+function grid(H){
+  let g='';
+  for(let x=40;x<W;x+=40) g+=`<line x1="${x}" y1="0" x2="${x}" y2="${H}" style="stroke:var(--grid);stroke-width:1"/>`;
+  for(let y=40;y<H;y+=40) g+=`<line x1="0" y1="${y}" x2="${W}" y2="${y}" style="stroke:var(--grid);stroke-width:1"/>`;
+  return g;
+}
+const HALO = 'paint-order:stroke;stroke:var(--halo);stroke-width:4px;stroke-linejoin:round;';
+const MONO = "font-family:'JetBrains Mono',ui-monospace,monospace;";
+const SANS = "font-family:Anuphan,system-ui,sans-serif;";
+
+function dayMap(day, panel){
+  const inP = k => panel.k.includes(k);
+  const {H,P} = frame(panel.k, 70, 420, 250);
+  const col = `var(${day.c})`;
+  let lines='', arr={}, marks='';
+  const S = day.stops;
+  for(let i=0;i<S.length-1;i++){
+    const a=S[i], b=S[i+1];
+    if(a.p===b.p) continue;
+    const A=inP(a.p), B=inP(b.p);
+    if(A&&B){
+      const [x1,y1]=P(a.p),[x2,y2]=P(b.p);
+      lines+=`<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" style="stroke:var(--halo);stroke-width:10;stroke-linecap:round"/>`;
+      lines+=`<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" style="stroke:${col};stroke-width:5;stroke-linecap:round;${b.walk?'stroke-dasharray:1 9;':''}"/>`;
+    } else if(A||B){
+      const ink=A?a.p:b.p, out=A?b.p:a.p, key=ink+'|'+out;
+      arr[key]=arr[key]||{ink,out,o:0,i:0};
+      if(A) arr[key].o=1; else arr[key].i=1;
+    }
+  }
+  for(const v of Object.values(arr)){
+    const [x,y]=P(v.ink), [ax,ay]=pr(v.ink), [bx,by]=pr(v.out);
+    let dx=bx-ax, dy=by-ay; const m=Math.hypot(dx,dy)||1; dx/=m; dy/=m;
+    let L=84;
+    if(dx>0) L=Math.min(L,(W-16-x)/dx); if(dx<0) L=Math.min(L,(16-x)/dx);
+    if(dy>0) L=Math.min(L,(H-16-y)/dy); if(dy<0) L=Math.min(L,(16-y)/dy);
+    L=Math.max(L,30);
+    const ex=x+dx*L, ey=y+dy*L;
+    const hx=ex-dx*10, hy=ey-dy*10, px=-dy*6, py=dx*6;
+    lines+=`<line x1="${x}" y1="${y}" x2="${hx}" y2="${hy}" style="stroke:${col};stroke-width:3;stroke-dasharray:6 5"/>`;
+    lines+=`<polygon points="${ex},${ey} ${hx+px},${hy+py} ${hx-px},${hy-py}" style="fill:${col}"/>`;
+    const sym=v.o&&v.i?'↔':v.o?'→':'←';
+    const left = ex > W*0.6;
+    const ty = ey + (dy>0 ? 18 : -10);
+    lines+=`<text x="${ex}" y="${ty}" text-anchor="${left?'end':'start'}" style="${MONO}font-size:11px;font-weight:700;fill:${col};${HALO}">${sym} ${PL[v.out].n}</text>`;
+  }
+  const nums={};
+  S.forEach((s,i)=>{ if(inP(s.p)) (nums[s.p]=nums[s.p]||[]).push(i+1); });
+  for(const [k,list] of Object.entries(nums)){
+    const [x,y]=P(k); const lab=list.join('·'); const w=Math.max(26, 12+lab.length*7.6);
+    marks+=`<rect x="${x-w/2}" y="${y-13}" width="${w}" height="26" rx="8" style="fill:var(--card);stroke:${col};stroke-width:3"/>`;
+    marks+=`<text x="${x}" y="${y+4.5}" text-anchor="middle" style="${MONO}font-size:12px;font-weight:700;fill:var(--ink)">${lab}</text>`;
+    const right = x < W-170;
+    marks+=`<text x="${right?x+w/2+7:x-w/2-7}" y="${y+4.5}" text-anchor="${right?'start':'end'}" style="${SANS}font-size:13px;font-weight:600;fill:var(--ink);${HALO}">${PL[k].n}</text>`;
+  }
+  return `<figure><svg viewBox="0 0 ${W} ${H}" width="${W}" height="${H}" role="img" aria-label="แผนที่ ${panel.t}"><rect width="${W}" height="${H}" style="fill:var(--map)"/>${grid(H)}${lines}${marks}</svg><figcaption><span>${panel.t}</span><span>N ↑</span></figcaption></figure>`;
+}
+
+function overviewMap(){
+  const keys=Object.keys(PL);
+  const {H,P}=frame(keys, 50, 380, 300);
+  let lines='', dots='';
+  DAYS.forEach(d=>{
+    const pts=d.stops.map(s=>P(s.p).join(',')).join(' ');
+    lines+=`<polyline points="${pts}" style="fill:none;stroke:var(--halo);stroke-width:9;stroke-linejoin:round;stroke-linecap:round"/>`;
+    lines+=`<polyline points="${pts}" style="fill:none;stroke:var(${d.c});stroke-width:4;stroke-linejoin:round;stroke-linecap:round"/>`;
+  });
+  keys.forEach(k=>{const [x,y]=P(k); dots+=`<circle cx="${x}" cy="${y}" r="3.5" style="fill:var(--card);stroke:var(--ink);stroke-width:1.5"/>`;});
+  const reg=[["TOKYO","hotel",-10,-34,"middle"],["HAKONE","gora",0,-30,"middle"],["KAMAKURA","kamakura",0,34,"middle"],["NARITA","narita",-8,-18,"end"]];
+  let labels='';
+  reg.forEach(([t,k,ox,oy,an])=>{const [x,y]=P(k); labels+=`<text x="${x+ox}" y="${y+oy}" text-anchor="${an}" style="font-family:'Dela Gothic One',sans-serif;font-size:16px;letter-spacing:2px;fill:var(--ink);${HALO}">${t}</text>`;});
+  const leg = DAYS.map(d=>`<span style="--c:var(${d.c})"><i></i>Day ${d.id}</span>`).join('');
+  return `<figure><svg viewBox="0 0 ${W} ${H}" width="${W}" height="${H}" role="img" aria-label="แผนที่ภาพรวมทั้งทริป"><rect width="${W}" height="${H}" style="fill:var(--map)"/>${grid(H)}${lines}${dots}${labels}</svg><figcaption><span class="legend">${leg}</span><span>N ↑ · ~120 กม.</span></figcaption></figure>`;
+}
+
+function routeList(d){
+  const S=d.stops;
+  return `<ol class="route">`+S.map((s,i)=>{
+    const cls=['stop', s.walk?'walk':'', S[i+1]&&S[i+1].walk?'nextwalk':''].join(' ');
+    return `<li class="${cls}"><span class="time">${s.t}</span><span class="node"><b>${i+1}</b></span><div class="info"><span class="nm">${PL[s.p].n}</span><span class="th">${s.th}</span>${s.how!=='—'?`<span class="how">${s.how}</span>`:''}${s.w?`<span class="warnline">${s.w}</span>`:''}${(s.buy||[]).map(([t,u])=>`<a class="stopbuy" href="${u}" target="_blank" rel="noopener">${t} ↗</a>`).join('')}</div></li>`;
+  }).join('')+`</ol>`;
+}
+
+const view=document.getElementById('view'), tabs=document.getElementById('tabs');
+const TABS=[{id:0,c:"--ink",label:"ทั้งทริป"}].concat(DAYS.map(d=>({id:d.id,c:d.c,label:`Day ${d.id}`,sub:d.date.split(' ')[0]})));
+tabs.innerHTML=TABS.map(t=>`<button class="tab" role="tab" id="tab${t.id}" aria-selected="false" style="--c:var(${t.c})" data-id="${t.id}"><span class="sq">${t.id||'★'}</span>${t.label}${t.sub?` <small>${t.sub}</small>`:''}</button>`).join('');
+
+function render(id){
+  tabs.querySelectorAll('.tab').forEach(b=>b.setAttribute('aria-selected', String(+b.dataset.id===id)));
+  if(id===0){
+    view.style.setProperty('--c','var(--ink)');
+    view.innerHTML=`<div class="daygrid"><div class="maps">${overviewMap()}</div><div class="ovlist">${DAYS.map(d=>`<button class="ovrow" style="--c:var(${d.c})" data-go="${d.id}"><span class="d">DAY ${d.id} · ${d.date}</span><span class="t">${d.title}</span><span class="r">${[...new Set(d.stops.map(s=>PL[s.p].n))].join(' → ')}</span></button>`).join('')}</div></div>`;
+    view.querySelectorAll('[data-go]').forEach(b=>b.addEventListener('click',()=>go(+b.dataset.go)));
+  } else {
+    const d=DAYS.find(x=>x.id===id);
+    view.style.setProperty('--c',`var(${d.c})`);
+    view.innerHTML=`<div class="dayhead"><div class="daynum">${d.id}</div><div class="daytitle"><span class="eyebrow">${d.date}</span><h2>${d.title}</h2></div><div class="chips"><span class="chip">บัตร <b>${d.pass}</b></span>${(d.buy||[]).map(([t,u])=>`<a class="chip" href="${u}" target="_blank" rel="noopener" style="text-decoration:none"><b>${t} ↗</b></a>`).join('')}</div><a class="btn" href="${d.gm}" target="_blank" rel="noopener">เปิดใน Google Maps ↗</a></div>
+    <div class="daygrid"><div class="maps">${d.panels.map(p=>dayMap(d,p)).join('')}<div class="legend" style="font-size:12px;color:var(--muted)"><span><i></i>รถไฟ / รถ / เรือ</span><span><i class="dash"></i>เดิน</span><span>ลูกศรประ = ช่วงที่ออกนอกแผนที่</span></div></div><div class="routecard">${routeList(d)}</div></div>`;
+  }
+}
+function go(id){ render(id); try{history.replaceState(null,'',id?'#day'+id:'#all')}catch(e){} }
+tabs.addEventListener('click',e=>{const b=e.target.closest('.tab'); if(b) go(+b.dataset.id);});
+const m=(location.hash||'').match(/day(\d)/);
+render(m?+m[1]:0);
+</script>
+
+</body></html>
