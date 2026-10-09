@@ -5,6 +5,8 @@
 <meta property="og:description" content="มาราธอน ออนเซ็น ธรรมชาติ ของกิน — 5 วัน 5 สาย พร้อมแผนที่และตั๋วที่ต้องซื้อ">
 <meta name="theme-color" content="#131820">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🗻</text></svg>">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
 </head><body>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -92,6 +94,12 @@ h1,h2,h3{margin:0;text-wrap:balance}
 .maps{display:flex;flex-direction:column;gap:14px;min-width:0}
 figure{margin:0;background:var(--map);border-radius:14px;overflow:hidden;border:1px solid var(--rule)}
 figure svg{display:block;width:100%;height:auto;max-width:100%}
+.lmap{height:380px;width:100%;background:var(--map);z-index:0}
+@media (max-width:600px){.lmap{height:300px}}
+.pin{position:absolute;transform:translate(-50%,-50%);display:grid;place-items:center;min-width:26px;height:26px;padding:0 5px;border-radius:8px;background:var(--card);color:var(--ink);border:3px solid var(--c);font:700 12px/1 "JetBrains Mono",monospace;white-space:nowrap;box-shadow:0 2px 6px rgba(0,0,0,.25)}
+.dot{position:absolute;transform:translate(-50%,-50%);width:10px;height:10px;border-radius:50%;background:var(--card);border:2px solid var(--ink)}
+.leaflet-tooltip{font-family:var(--body);font-size:13px}
+.leaflet-container{font-family:var(--body)}
 figcaption{display:flex;justify-content:space-between;gap:10px;padding:8px 14px;font-size:12px;color:var(--muted);border-top:1px solid var(--rule);background:var(--card);font-family:var(--mono)}
 .legend{display:flex;gap:14px;flex-wrap:wrap}
 .legend i{display:inline-block;width:22px;height:0;border-top:4px solid var(--c);vertical-align:middle;margin-right:6px}
@@ -408,6 +416,48 @@ function overviewMap(){
   return `<figure><svg viewBox="0 0 ${W} ${H}" width="${W}" height="${H}" role="img" aria-label="แผนที่ภาพรวมทั้งทริป"><rect width="${W}" height="${H}" style="fill:var(--map)"/>${grid(H)}${lines}${dots}${labels}</svg><figcaption><span class="legend">${leg}</span><span>N ↑ · ~120 กม.</span></figcaption></figure>`;
 }
 
+const MAPS=[];
+function tileLayer(){
+  const dark=document.documentElement.dataset.theme==='dark'||(document.documentElement.dataset.theme!=='light'&&matchMedia('(prefers-color-scheme: dark)').matches);
+  return L.tileLayer(`https://{s}.basemaps.cartocdn.com/${dark?'dark_all':'rastertiles/voyager'}/{z}/{x}/{y}{r}.png`,{subdomains:'abcd',maxZoom:19,attribution:'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions">CARTO</a>'});
+}
+const colOf=d=>getComputedStyle(document.documentElement).getPropertyValue(d.c).trim();
+const ll=k=>[PL[k].lat,PL[k].lng];
+function drawRoute(map,d,weight){
+  const col=colOf(d), S=d.stops;
+  for(let i=0;i<S.length-1;i++){
+    const a=S[i], b=S[i+1]; if(a.p===b.p) continue;
+    L.polyline([ll(a.p),ll(b.p)],{color:col,weight:weight+4,opacity:.35,interactive:false}).addTo(map);
+    L.polyline([ll(a.p),ll(b.p)],{color:col,weight,opacity:1,dashArray:b.walk?'2 10':null,lineCap:'round'}).addTo(map).bindTooltip(`${PL[b.p].n} · ${b.how}`,{sticky:true});
+  }
+  return col;
+}
+function mapBox(attrs,cap){ return `<figure><div class="lmap" ${attrs}></div><figcaption><span>${cap}</span><span>N ↑</span></figcaption></figure>`; }
+function dayMap(d,panel){ return mapBox(`data-day="${d.id}" data-keys="${panel.k.join(',')}"`, panel.t); }
+function overviewMap(){ return mapBox('data-day="0"', `<span class="legend">${DAYS.map(x=>`<span style="--c:var(${x.c})"><i></i>Day ${x.id}</span>`).join('')}</span>`).replace('<span>N ↑</span>','<span>N ↑ · ~120 กม.</span>'); }
+function initMaps(){
+  MAPS.splice(0).forEach(m=>m.remove());
+  if(!window.L) return;
+  view.querySelectorAll('.lmap').forEach(el=>{
+    const map=L.map(el,{scrollWheelZoom:false,zoomSnap:.25}); MAPS.push(map);
+    tileLayer().addTo(map);
+    const id=+el.dataset.day;
+    if(id===0){
+      DAYS.forEach(d=>drawRoute(map,d,4));
+      Object.keys(PL).forEach(k=>L.marker(ll(k),{icon:L.divIcon({className:'',html:'<span class="dot"></span>',iconSize:null})}).addTo(map).bindTooltip(PL[k].n));
+      map.fitBounds(L.latLngBounds(Object.keys(PL).map(ll)),{padding:[30,30]});
+    } else {
+      const d=DAYS.find(x=>x.id===id), col=drawRoute(map,d,5), nums={};
+      d.stops.forEach((s,i)=>(nums[s.p]=nums[s.p]||[]).push(i));
+      for(const [k,list] of Object.entries(nums)){
+        const tip=`<b>${PL[k].n}</b><br>`+list.map(i=>`${i+1}. ${d.stops[i].t} · ${d.stops[i].th}`).join('<br>');
+        L.marker(ll(k),{icon:L.divIcon({className:'',html:`<span class="pin" style="--c:${col}">${list.map(i=>i+1).join('·')}</span>`,iconSize:null}),zIndexOffset:100}).addTo(map).bindTooltip(tip,{direction:'top',offset:[0,-14]});
+      }
+      map.fitBounds(L.latLngBounds(el.dataset.keys.split(',').map(ll)),{padding:[45,45],maxZoom:15});
+    }
+  });
+}
+
 function routeList(d){
   const S=d.stops;
   return `<ol class="route">`+S.map((s,i)=>{
@@ -430,13 +480,15 @@ function render(id){
     const d=DAYS.find(x=>x.id===id);
     view.style.setProperty('--c',`var(${d.c})`);
     view.innerHTML=`<div class="dayhead"><div class="daynum">${d.id}</div><div class="daytitle"><span class="eyebrow">${d.date}</span><h2>${d.title}</h2></div><div class="chips"><span class="chip">บัตร <b>${d.pass}</b></span>${(d.buy||[]).map(([t,u])=>`<a class="chip" href="${u}" target="_blank" rel="noopener" style="text-decoration:none"><b>${t} ↗</b></a>`).join('')}</div><a class="btn" href="${d.gm}" target="_blank" rel="noopener">เปิดใน Google Maps ↗</a></div>
-    <div class="daygrid"><div class="maps">${d.panels.map(p=>dayMap(d,p)).join('')}<div class="legend" style="font-size:12px;color:var(--muted)"><span><i></i>รถไฟ / รถ / เรือ</span><span><i class="dash"></i>เดิน</span><span>ลูกศรประ = ช่วงที่ออกนอกแผนที่</span></div></div><div class="routecard">${routeList(d)}</div></div>`;
+    <div class="daygrid"><div class="maps">${d.panels.map(p=>dayMap(d,p)).join('')}<div class="legend" style="font-size:12px;color:var(--muted)"><span><i></i>รถไฟ / รถ / เรือ</span><span><i class="dash"></i>เดิน</span><span>ลาก/ซูมแผนที่ได้ · แตะหมุดดูรายละเอียด · เส้นที่วิ่งออกขอบ = ไปจุดนอกแผนที่</span></div></div><div class="routecard">${routeList(d)}</div></div>`;
   }
+  initMaps();
 }
 function go(id){ render(id); try{history.replaceState(null,'',id?'#day'+id:'#all')}catch(e){} }
 tabs.addEventListener('click',e=>{const b=e.target.closest('.tab'); if(b) go(+b.dataset.id);});
 const m=(location.hash||'').match(/day(\d)/);
 render(m?+m[1]:0);
+addEventListener('hashchange',()=>{const h=(location.hash||'').match(/day(\d)/); render(h?+h[1]:0);});
 </script>
 
 </body></html>
