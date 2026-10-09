@@ -93,13 +93,14 @@ h1,h2,h3{margin:0;text-wrap:balance}
 @media (max-width:860px){.daygrid{grid-template-columns:minmax(0,1fr)}}
 .maps{display:flex;flex-direction:column;gap:14px;min-width:0}
 figure{margin:0;background:var(--map);border-radius:14px;overflow:hidden;border:1px solid var(--rule)}
-figure svg{display:block;width:100%;height:auto;max-width:100%}
+figure>svg{display:block;width:100%;height:auto;max-width:100%}
 .lmap{height:380px;width:100%;background:var(--map);z-index:0}
 @media (max-width:600px){.lmap{height:300px}}
 .pin{position:absolute;transform:translate(-50%,-50%);display:grid;place-items:center;min-width:26px;height:26px;padding:0 5px;border-radius:8px;background:var(--card);color:var(--ink);border:3px solid var(--c);font:700 12px/1 "JetBrains Mono",monospace;white-space:nowrap;box-shadow:0 2px 6px rgba(0,0,0,.25)}
 .dot{position:absolute;transform:translate(-50%,-50%);width:10px;height:10px;border-radius:50%;background:var(--card);border:2px solid var(--ink)}
 .leaflet-tooltip{font-family:var(--body);font-size:13px}
 .leaflet-container{font-family:var(--body)}
+.tiles-dark{filter:invert(1) hue-rotate(180deg) brightness(.9) contrast(.9) saturate(.6)}
 figcaption{display:flex;justify-content:space-between;gap:10px;padding:8px 14px;font-size:12px;color:var(--muted);border-top:1px solid var(--rule);background:var(--card);font-family:var(--mono)}
 .legend{display:flex;gap:14px;flex-wrap:wrap}
 .legend i{display:inline-block;width:22px;height:0;border-top:4px solid var(--c);vertical-align:middle;margin-right:6px}
@@ -419,7 +420,7 @@ function overviewMap(){
 const MAPS=[];
 function tileLayer(){
   const dark=document.documentElement.dataset.theme==='dark'||(document.documentElement.dataset.theme!=='light'&&matchMedia('(prefers-color-scheme: dark)').matches);
-  return L.tileLayer(`https://{s}.basemaps.cartocdn.com/${dark?'dark_all':'rastertiles/voyager'}/{z}/{x}/{y}{r}.png`,{subdomains:'abcd',maxZoom:19,attribution:'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions">CARTO</a>'});
+  return L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:19,className:dark?'tiles-dark':'',attribution:'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'});
 }
 const colOf=d=>getComputedStyle(document.documentElement).getPropertyValue(d.c).trim();
 const ll=k=>[PL[k].lat,PL[k].lng];
