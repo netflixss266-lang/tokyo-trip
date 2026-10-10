@@ -188,7 +188,10 @@ figcaption{display:flex;justify-content:space-between;gap:10px;padding:8px 14px;
 .cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px}
 .panel{background:var(--card);border:1px solid var(--rule);border-radius:14px;padding:20px}
 .panel h2{font-size:19px;margin-bottom:10px}
-.panel ul{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:8px;font-size:14px}
+.panel ul{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:12px;font-size:14px}
+.srcs{display:flex;flex-wrap:wrap;gap:6px;margin-top:5px}
+.src{font-size:12px;color:var(--muted);text-decoration:none;border:1px solid var(--rule);border-radius:999px;padding:3px 10px;background:var(--bg)}
+.src:hover,.src:focus-visible{color:var(--ink);border-color:var(--ink)}
 .panel p{margin:0 0 12px;font-size:14px;color:var(--muted)}
 .tablewrap{overflow-x:auto}
 table{border-collapse:collapse;width:100%;font-size:14px}
@@ -299,16 +302,16 @@ td:first-child{white-space:nowrap;font-weight:600}
     <div class="panel">
       <h2>ข้อควรระวัง</h2>
       <ul>
-        <li><b>Shinjuku Gyoen ปิดวันจันทร์</b> ตรงกับ Day 4 พิพิธภัณฑ์ส่วนใหญ่ใน Ueno ก็ปิด</li>
-        <li><b>ฮาโกเน่วันก่อนวิ่ง</b> เดินทางไปกลับ ~4 ชม. และแช่ออนเซ็นก่อนแข่ง ขาอาจไม่สด</li>
-        <li><b>คามาคุระหลังวิ่ง 21 กม.</b> ศาลเจ้าและวัดมีบันไดเยอะ เหนื่อยตัด Hase-dera ได้</li>
-        <li><b>ฮาโกเน่วันเสาร์คนแน่น</b> จอง Romancecar ล่วงหน้า</li>
-        <li><b>Owakudani ropeway ปิดบ่อย</b> เมื่อลมแรงหรือก๊าซภูเขาไฟสูง เช็กเช้าวันนั้น</li>
-        <li><b>ใบไม้ยังไม่เปลี่ยนสี</b> กลางตุลา แปะก๊วย Gaien ยังเขียว (เหลืองปลาย พ.ย.)</li>
+        <li><b>Shinjuku Gyoen ปิดวันจันทร์</b> ตรงกับ Day 4 (19 ต.ค.) พิพิธภัณฑ์ใหญ่ใน Ueno ก็ปิดวันจันทร์เหมือนกัน<span class="srcs"><a class="src" href="https://fng.or.jp/shinjuku/en" target="_blank" rel="noopener">Shinjuku Gyoen (ทางการ) ↗</a><a class="src" href="https://www.tnm.jp/?lang=en" target="_blank" rel="noopener">Tokyo National Museum ↗</a></span></li>
+        <li><b>ฮาโกเน่วันก่อนวิ่ง</b> นั่ง Romancecar เที่ยวละ ~80 นาที รวมต่อรถในฮาโกเน่ทั้งวันเดินเยอะ อาจเหนื่อยสะสมก่อนแข่ง ถ้าแช่ออนเซ็นให้แช่สั้นๆ 15–20 นาที ไม่ร้อนจัด และดื่มน้ำเยอะๆ<span class="srcs"><a class="src" href="https://www.odakyu.jp/english/romancecar/" target="_blank" rel="noopener">Romancecar · เวลาเดินทาง ↗</a><a class="src" href="https://mirashowers.co.uk/blog/mira-recommends/the-health-benefits-of-baths-when-training-for-a-marathon" target="_blank" rel="noopener">คำแนะนำแช่น้ำร้อนก่อนวิ่ง ↗</a></span></li>
+        <li><b>คามาคุระหลังวิ่ง 21 กม.</b> Hase-dera สร้างอยู่บนเนิน ต้องเดินขึ้นบันไดไปถึงวิหารหลัก ถ้าล้าขาตัดทิ้งได้<span class="srcs"><a class="src" href="https://www.japan-guide.com/e/e3101.html" target="_blank" rel="noopener">japan-guide · Hasedera ↗</a></span></li>
+        <li><b>ฮาโกเน่วันเสาร์คนแน่น</b> Romancecar เป็นที่นั่งจองทั้งขบวน วันหยุดเต็มเร็ว จองล่วงหน้า<span class="srcs"><a class="src" href="https://www.odakyu.jp/english/romancecar/" target="_blank" rel="noopener">Odakyu · Romancecar ↗</a></span></li>
+        <li><b>Hakone Ropeway อาจหยุดวิ่ง</b> หยุดเมื่อลมแรงหรือก๊าซภูเขาไฟที่ Owakudani สูงเกินเกณฑ์ เช็กสถานะเช้าวันนั้น<span class="srcs"><a class="src" href="https://www.hakoneropeway.co.jp/foreign/en/caution/" target="_blank" rel="noopener">Hakone Ropeway (ทางการ) ↗</a><a class="src" href="https://www.hakonenavi.jp/international/en/transportation/hakone-ropeway" target="_blank" rel="noopener">Hakone Navi ↗</a></span></li>
+        <li><b>แปะก๊วยยังไม่เหลือง</b> กลาง ต.ค. ต้นแปะก๊วยที่ Gaien ยังเขียว จะเหลืองช่วงกลาง พ.ย.–ต้น ธ.ค.<span class="srcs"><a class="src" href="https://en.japantravel.com/guide/tokyos-top-ginkgo-tree-destinations/69280" target="_blank" rel="noopener">Japan Travel · Ginkgo ↗</a></span></li>
       </ul>
     </div>
     <div class="panel">
-      <h2>ทางเลือก: สลับวันให้ขาสดวันวิ่ง</h2>
+      <h2>ทางเลือก: สลับวัน ให้ขาไม่ล้าก่อนวันวิ่ง</h2>
       <p>ย้ายฮาโกเน่ไปหลังวิ่ง แช่ออนเซ็นตอนฟื้นตัว เลี่ยงคนเสาร์ และไม่เจอสวนปิดวันจันทร์ แลกกับตัด Ueno / Shinjuku Gyoen</p>
       <div class="tablewrap">
         <table>
